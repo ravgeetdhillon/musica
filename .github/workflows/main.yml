@@ -1,0 +1,56 @@
+name: Release new track
+
+on:
+  schedule:
+    - cron: '0 12 */3 * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
+      GOOGLE_YOUTUBE_REFRESH_TOKEN: ${{ secrets.GOOGLE_YOUTUBE_REFRESH_TOKEN }}
+      REMOTE_BRANCH: master
+
+    steps:
+    - name: Clone the repository
+      uses: actions/checkout@v1
+    
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7.5
+    
+    - name: Install PIP Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install FFmpeg
+      run: |
+        sudo apt update
+        sudo apt install ffmpeg
+    
+    - name: Release
+      run: |
+        cd src
+        python app.py
+    
+    - name: Update Progress
+      run: |
+        git config --global user.email ${GITHUB_ACTOR}@gmail.com
+        git config --global user.name ${GITHUB_ACTOR}
+
+        change=`git diff --exit-code src/data/uploaded.json`
+        change=`echo $?`
+
+        if [ $change -eq 1 ]
+        then
+            git add src/data/uploaded.json
+            git commit -m "new track released"
+            git push --force https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git HEAD:${REMOTE_BRANCH}
+        fi

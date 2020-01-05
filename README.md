@@ -1,6 +1,9 @@
 # Musica
 
-Automating my music release.
+[![Workflow Status](https://github.com/ravgeetdhillon/musica/workflows/Release%20new%20track/badge.svg)](https://github.com/ravgeetdhillon/musica/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ravgeetdhillon/musica/blob/master/LICENSE)
+
+Automating my music release on Youtube.
 
 ## Background
 

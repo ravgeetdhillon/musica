@@ -5,6 +5,7 @@ from googleapiclient.discovery import build
 from helpers import load_data, save_data
 import subprocess
 import requests
+import random
 import json
 import io
 
@@ -34,19 +35,16 @@ def get_files(creds):
     """
 
     drive_service = build('drive', 'v3', credentials=creds)
-
-    results = drive_service.files().list(
-        pageSize=1000, orderBy='modifiedTime'
-    ).execute()
-
+    results = drive_service.files().list(pageSize=1000).execute()
     items = results.get('files', [])
+    random.shuffle(items)
 
     return items
 
 
 def select_audio_image(files):
     """
-    Chooses an audio and it's corresponding image which is to be converted into an image.
+    Chooses an audio and it's corresponding image which is to be converted into a video.
     """
 
     uploaded = load_data('uploaded.json')
@@ -57,14 +55,9 @@ def select_audio_image(files):
     for audio in audios:
         if audio['id'] not in uploaded:
             audio_basename = audio['name'].split('.')[0]
-            break
-    else:
-        audio_basename = None
-
-    if audio_basename is not None:
-        for image in images:
-            if image['name'].split('.')[0] == audio_basename:
-                return audio, image
+            for image in images:
+                if image['name'].split('.')[0] == audio_basename:
+                    return audio, image
 
     return None
 
@@ -120,7 +113,7 @@ def upload_video(video_name, creds):
             'freestyle beats','indian hip hop beat','free beat instrumental','drake type beat free',
             'type beat','rap instrumental','rap','instrumental','beat','drake type beats',
             'free type beat','free type beats','free type beat 2020','quavo type beat','trap beat',
-            'trap rap beat','travis scott type beat','boht hard', 'boht hard beat','fl studio beats']
+            'trap rap beat','travis scott type beat','boht hard', 'boht hard beat','fl studio beats',track_title]
 
     description = f'''
     {title}
@@ -128,9 +121,9 @@ def upload_video(video_name, creds):
     {title}
 
     🙂 About Me?
-    I'm a India based producer, producing beats for fun as I love this art.
-    I'm a huge fan of Indian hiphop scene. So my beats are dedicated to the followers of Indian hiphop.
-    My dream is to work with talented artists irrespective of how famous they are. 🙏
+    I'm a India based producer, producing beats for hiphop artists around the country..
+    I'm a part and fan of Indian hiphop scene. So my beats are dedicated to the followers of Indian hiphop.
+    My sole purpose is to work with talented artists irrespective of how famous they are. 🙏
 
     🎹 Free beat?
     The beats on this channel are free to use in your project but please give me a deserving credit.
@@ -138,16 +131,16 @@ def upload_video(video_name, creds):
     📷 Wanna collaborate?
     If you want to collaborate with me on a project, you are most welcome. You can DM me on Instagram ☛ https://instagram.com/ravd_ravgeet
 
-    🥂 Don't mind subscribing?
-    Help me reach 1000 subscribers ☛ http://bit.ly/2jeCIGS
+    🥂 Be a part of family?
+    Subscribe to this channel and be a part of a happy family ☛ http://bit.ly/2jeCIGS
     
     📌 Tags:
     {','.join(tags)}
 
     📝 Note:
-    The beats on this channel are uploaded by an automated script. You can find it out at https://github.com/ravgeetdhillon/music
+    The beats on this channel are uploaded using an automated script. You can find it out at https://github.com/ravgeetdhillon/music
 
-    #IndianHipHopTypeBeat #FreeTypeBeat #Divine #Emiway #Beats #TrapBeat #FreeBeats #BohtHard
+    #IndianHipHopTypeBeat #FreeTypeBeat #Divine #Emiway #Beats #TrapBeat #FreeBeats #BohtHard #IndianProducer #Producer
     '''
 
     youtube = build('youtube', 'v3', credentials=creds)

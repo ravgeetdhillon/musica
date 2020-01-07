@@ -1,4 +1,4 @@
-from variables import CLIENT_ID, CLIENT_SECRET, DRIVE_REFRESH_TOKEN, YOUTUBE_REFRESH_TOKEN, DRIVE_SCOPES, YOUTUBE_SCOPES
+from variables import CLIENT_ID, CLIENT_SECRET, DRIVE_REFRESH_TOKEN, YOUTUBE_REFRESH_TOKEN, DRIVE_SCOPES, YOUTUBE_SCOPES, ALL_ARTISTS
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
@@ -102,18 +102,22 @@ def upload_video(video_name, creds):
     Uploads the specified video to Youtube channel.
     """
 
+    artists = [random.choice(ALL_ARTISTS)]
+    if random.choice([0,1]) == 0:
+        artist = random.choice(ALL_ARTISTS)
+        while artist in artists:
+            artist = random.choice(ALL_ARTISTS)
+        artists.append(artist)
+
+    artists = ' x '.join(artists)
     track_title = video_name.split('.')[0].replace('-', ' ')
+    title = '[FREE] {} type beat - {} | Produced by RavD'.format(artists, track_title)
 
-    title = '{} | Desi HipHop | Free type beat | Produced by RavD'.format(track_title)
-
-    tags = ['mumbai hiphop','mumbai hiphop beat','mumbai hiphop type beat','ravdmusic','desi hiphop','desi hip hop',
-            'ravd','produced by ravd','mumbai hiphop','delhi hiphop beat','divine type beat',
-            'gully gang beat','emiway type beat','raftaar type beat','raftaar type beat free',
-            'divine type beat free','emiway type beat free','free type beats','free beats to use',
-            'freestyle beats','indian hip hop beat','free beat instrumental','drake type beat free',
-            'type beat','rap instrumental','rap','instrumental','beat','drake type beats',
-            'free type beat','free type beats','free type beat 2020','quavo type beat','trap beat',
-            'trap rap beat','travis scott type beat','boht hard', 'boht hard beat','fl studio beats',track_title]
+    tags = ['divine type beat','indian rap beats','ikka type beat','ikka type beat free','krsna type beat',
+            'krishna type beat','krishna type beat free','divine type beat free','naezy type beat','naezy type beat free',
+            'gully gang beat','emiway type beat','raftaar type beat','raftaar type beat free','type beat',
+            'divine type beat free','emiway type beat free','ravdmusic','indian rat beat','free type beat',
+            'free type beats',track_title]
 
     description = f'''
     {title}
@@ -190,7 +194,6 @@ def app():
         audio_name = audio['name']
         image_id = image['id']
         image_name = image['name']
-        print(audio_id, audio_name, image_id, image_name)
 
         # download the selected audio and image
         download_file(audio_id, audio_name, creds=drive_creds)
@@ -203,6 +206,7 @@ def app():
         # if conversion is successful, upload the video to Youtube
         if conversion is not False:
             response = upload_video(conversion, creds=youtube_creds)
+            print(response)
             print('New track released.')
 
             # save the audio id in uploaded

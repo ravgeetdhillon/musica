@@ -22,3 +22,7 @@ DRIVE_SCOPES = [
 YOUTUBE_SCOPES = [
     'https://www.googleapis.com/auth/youtube.upload',
 ]
+
+# a lsit of artists
+ALL_ARTISTS = ['Emiway', 'Divine', 'Raftaar', 'Ikka', 'Dino James',
+           'Naezy', '7 Bantaiz', 'Brodha V', 'Krsna']

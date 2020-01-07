@@ -3,13 +3,13 @@
 [![Workflow Status](https://github.com/ravgeetdhillon/musica/workflows/Release%20new%20track/badge.svg)](https://github.com/ravgeetdhillon/musica/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ravgeetdhillon/musica/blob/master/LICENSE)
 
-Automating my music release on Youtube.
+Automate your music release on YouTube.
 
 ## Background
 
 For the past 4 years, I have been making music as a hobby. Over this period I have made more than 300 tracks. But never got time to upload them to my Youtube channel. The reason was that it takes a lot of time to create videos, then upload it to Youtube, where you have to fill a lot of data like video's title, description, tags, and other metadata.
 
-So one day I was listening to my old music with my brother and he asked me why don't you upload these beats to your channel. I told him about the above problem. Then he said, "Man, you are a programmer, why don't you automate the process?". It was the Eureka moment right there. So I sat on the Weekend to complete this project and gracefully it happened.
+So one day I was listening to my old music with my brother and he asked me why don't you upload these beats to your channel. I told him about the above problem. Then he said, "Man, you are a programmer, why don't you automate the process?". It was the Eureka moment right there. So I sat on the weekend to complete this project and gracefully it happened.
 
 ## How it works
 

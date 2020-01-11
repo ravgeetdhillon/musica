@@ -44,10 +44,8 @@ jobs:
       run: |
         git config --global user.email ${GITHUB_ACTOR}@gmail.com
         git config --global user.name ${GITHUB_ACTOR}
-
         change=`git diff --exit-code src/data/uploaded.json`
         change=`echo $?`
-
         if [ $change -eq 1 ]
         then
             git add src/data/uploaded.json

@@ -111,13 +111,9 @@ def upload_video(video_name, creds):
 
     artists = ' x '.join(artists)
     track_title = video_name.split('.')[0].replace('-', ' ')
-    title = '[FREE] {} type beat - {} | Produced by RavD'.format(artists, track_title)
+    title = '[FREE] {} type beat - {} | Indian rap type beat'.format(artists, track_title)
 
-    tags = ['divine type beat','indian rap beats','ikka type beat','ikka type beat free','krsna type beat',
-            'krishna type beat','krishna type beat free','divine type beat free','naezy type beat','naezy type beat free',
-            'gully gang beat','emiway type beat','raftaar type beat','raftaar type beat free','type beat',
-            'divine type beat free','emiway type beat free','ravdmusic','indian rat beat','free type beat',
-            'free type beats',track_title]
+    tags = ['divine type beat','indian rap beats','ikka type beat','ikka type beat free','krsna type beat','krishna type beat','krishna type beat free','divine type beat free','naezy type beat','naezy type beat free','gully gang beat','emiway type beat','raftaar type beat','raftaar type beat free','type beat','divine type beat free','emiway type beat free','ravdmusic','indian rap beat','free type beat','free type beats','indian rap type beats']
 
     description = f'''
     {title}
@@ -125,9 +121,7 @@ def upload_video(video_name, creds):
     {title}
 
     🙂 About Me?
-    I'm a India based producer, producing beats for hiphop artists around the country..
-    I'm a part and fan of Indian hiphop scene. So my beats are dedicated to the followers of Indian hiphop.
-    My sole purpose is to work with talented artists irrespective of how famous they are. 🙏
+    I'm an India based producer. I produce free type beats for indian rap artists around the world. I'm a huge fan of Indian rap type beats. So my free type beats are dedicated to the followers of Indian rap beats. My sole purpose is to work with talented artists irrespective of how famous they are. 🙏
 
     🎹 Free beat?
     The beats on this channel are free to use in your project but please give me a deserving credit.
@@ -142,9 +136,9 @@ def upload_video(video_name, creds):
     {','.join(tags)}
 
     📝 Note:
-    The beats on this channel are uploaded using an automated script. You can find it out at https://github.com/ravgeetdhillon/music
+    The beats on this channel are uploaded using an automated script. You can find it out at https://github.com/ravgeetdhillon/musica
 
-    #IndianHipHopTypeBeat #FreeTypeBeat #Divine #Emiway #Beats #TrapBeat #FreeBeats #BohtHard #IndianProducer #Producer
+    #indianraptypebeat #freeindianraptypebeat #indianhiphoptypebeat #freetypebeat #emiwaytypebeat #divinetypebeat #raftaartypebeat
     '''
 
     youtube = build('youtube', 'v3', credentials=creds)
@@ -162,6 +156,9 @@ def upload_video(video_name, creds):
             "status": {
                 "privacyStatus": "public",
                 "license": "creativeCommon",
+            },
+            "recordingDetails": {
+                "location": "India",
             }
         },
         media_body=MediaFileUpload(video_name)

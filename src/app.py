@@ -157,9 +157,6 @@ def upload_video(video_name, creds):
                 "privacyStatus": "public",
                 "license": "creativeCommon",
             },
-            "recordingDetails": {
-                "location": "India",
-            }
         },
         media_body=MediaFileUpload(video_name)
     )
